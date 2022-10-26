@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.INTEGER,
+      autoIncrement: true,
     },
     display_name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -12,6 +13,13 @@ module.exports = (sequelize, DataTypes) => {
     updated_at: DataTypes.DATE,
   },
   { tableName: 'users' });
+
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost, {
+      as: 'blog_pots',
+      foreignKey: 'user_id',
+    })
+  }
 
   return User;
 };
