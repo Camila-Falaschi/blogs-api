@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     image: DataTypes.STRING,
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   },
-  { tableName: 'users' });
+  { underscored: true, tableName: 'users' });
 
   User.associate = (models) => {
     User.hasMany(models.BlogPost, {
