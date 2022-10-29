@@ -10,5 +10,6 @@ routers.post('/', validateNewUserValues, userController.registerNewUser);
 routers.use(validateToken);
 
 routers.get('/', userController.getAllUsers);
+routers.get('/:id', userController.getUserById);
 
 module.exports = routers;

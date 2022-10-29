@@ -19,18 +19,29 @@ const registerNewUser = async (data) => {
   return token;
 };
 
-const getAllUsers = async () => {
-  const result = await User.findAll();
-  
-  const allUsersData = result.reduce((acc, element) => {
-    const { password, createdAt, updatedAt, ...info } = element.dataValues;
-    return [...acc, info];
-  }, []);
+const getAllUsers = async () => User.findAll({ 
+  attributes: ['id', 'displayName', 'email', 'image'],
+});
 
-  return allUsersData;
+const getUserById = async (id) => {
+  const validUser = await User.findByPk(id);
+
+  if (validUser) {
+    const result = await User.findOne({ 
+      where: { id },
+      attributes: ['id', 'displayName', 'email', 'image'],
+    });
+  
+    return result;
+  }
+
+  const error = new Error('User does not exist');
+  error.status = 404;
+  throw error;
 };
 
 module.exports = {
   registerNewUser,
   getAllUsers,
+  getUserById,
 };
