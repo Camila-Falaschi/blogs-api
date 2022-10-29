@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   },
-  { tableName: 'blog_posts' });
+  { tableName: 'blog_posts', timestamps: false, underscored: true, });
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
