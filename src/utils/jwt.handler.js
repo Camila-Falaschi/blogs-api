@@ -17,7 +17,8 @@ const validateToken = (token) => {
     const { data } = jwt.verify(token, process.env.JWT_SECRET);
     return data;
   } catch (_e) {
-    const error = new Error('Invalid Token');
+    const error = new Error('Expired or invalid token');
+    error.status = 401;
     throw error;
   }
 };

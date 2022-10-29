@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const jwt = require('../utils/jwt.generate');
+const jwt = require('../utils/jwt.handler');
 
 const validateLogin = async (email, password) => {
   const user = await User.findOne({ where: { email } });

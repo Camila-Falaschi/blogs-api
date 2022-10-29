@@ -1,4 +1,4 @@
-const jwt = require('../utils/jwt.generate');
+const jwt = require('../utils/jwt.handler');
 const { loginSchema, newUserSchema } = require('../utils/schemas');
 
 const validateLogin = (req, _res, next) => {
@@ -29,12 +29,14 @@ const validateToken = (req, _res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    const error = new Error('Token is required');
+    const error = new Error('Token not found');
+    error.status = 401;
     throw error;
   }
 
-  const token = jwt.validateToken(authorization);
-console.log(token);
+  const user = jwt.validateToken(authorization);
+  req.user = user;
+
   next();
 };
 
