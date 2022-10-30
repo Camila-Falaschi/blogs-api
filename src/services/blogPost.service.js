@@ -44,7 +44,7 @@ const addNewBlogPost = async (userId, { title, content, categoryIds }) => {
 const getAllBlogPost = async (userId) => BlogPost.findAll({
   where: { userId },
   include: [
-    { model: User, as: 'users', attributes: ['id', 'displayName', 'email', 'image'] },
+    { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
     { model: Category, as: 'categories', through: { attributes: [] } },
   ],
 });
