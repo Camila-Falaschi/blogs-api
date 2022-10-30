@@ -67,13 +67,15 @@ const updateBlogPost = async (userId, postId, changedPostData) => {
 
   await BlogPost.update({ ...changedPostData }, { where: { id: postId, userId } });
 
-  return BlogPost.findOne({
+  const post = await BlogPost.findOne({
     where: { id: postId, userId },
     include: [
       { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
+
+  return post;
 };
 
 module.exports = {

@@ -9,9 +9,9 @@ const routers = express.Router();
 routers.use(validateToken);
 
 routers.post('/', validateBlogPostValues, blogPostController.addNewBlogPost);
-routers.post('/:id', validatePostChanges, blogPostController.updateBlogPost);
-
 routers.get('/', blogPostController.getAllBlogPost);
+
+routers.put('/:id', validatePostChanges, blogPostController.updateBlogPost);
 routers.get('/:id', blogPostController.getBlogPostById);
 
 module.exports = routers;

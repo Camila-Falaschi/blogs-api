@@ -3,13 +3,13 @@ const categoriesService = require('../services/categories.service');
 const registerNewCategory = async (req, res) => {
   const result = await categoriesService.registerNewCategory(req.body);
   
-  res.status(201).json(result);
+  return res.status(201).json(result);
 };
 
 const getAllCategories = async (_req, res) => {
   const result = await categoriesService.getAllCategories();
   
-  res.status(200).json(result);  
+  return res.status(200).json(result);  
 };
 
 module.exports = {

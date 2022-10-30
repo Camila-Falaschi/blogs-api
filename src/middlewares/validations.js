@@ -53,7 +53,7 @@ const validateCategory = (req, _res, next) => {
   next();
 };
 
-const validateBlogPostValues = (req, res, next) => {
+const validateBlogPostValues = (req, _res, next) => {
   const { error } = blogPostSchema.validate(req.body);
 
   if (error) {
