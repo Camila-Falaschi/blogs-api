@@ -49,7 +49,16 @@ const getAllBlogPost = async (userId) => BlogPost.findAll({
   ],
 });
 
+const getBlogPostById = async (userId, postId) => BlogPost.findAll({
+  where: { id: postId, userId },
+  include: [
+    { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+    { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+});
+
 module.exports = {
   addNewBlogPost,
   getAllBlogPost,
+  getBlogPostById,
 };

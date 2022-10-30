@@ -10,5 +10,6 @@ routers.use(validateToken);
 routers.post('/', validateBlogPostValues, blogPostController.addNewBlogPost);
 
 routers.get('/', blogPostController.getAllBlogPost);
+routers.get('/:id', blogPostController.getBlogPostById);
 
 module.exports = routers;
