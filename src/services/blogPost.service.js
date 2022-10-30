@@ -57,8 +57,28 @@ const getBlogPostById = async (userId, postId) => BlogPost.findAll({
   ],
 });
 
+const updateBlogPost = async (userId, postId, changedPostData) => {
+  const verifyUser = await BlogPost.findOne({ where: { id: postId, userId } });
+  if (!verifyUser) {
+    const error = new Error('Unauthorized user');
+    error.status = 401;
+    throw error;
+  }
+
+  await BlogPost.update({ ...changedPostData }, { where: { id: postId, userId } });
+
+  return BlogPost.findOne({
+    where: { id: postId, userId },
+    include: [
+      { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+};
+
 module.exports = {
   addNewBlogPost,
   getAllBlogPost,
   getBlogPostById,
+  updateBlogPost,
 };

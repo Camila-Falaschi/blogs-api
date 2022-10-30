@@ -1,5 +1,6 @@
 const jwt = require('../utils/jwt.handler');
-const { loginSchema, newUserSchema, categorySchema, blogPostSchema } = require('../utils/schemas');
+const { loginSchema, newUserSchema, categorySchema, blogPostSchema,
+  updatePostSchema } = require('../utils/schemas');
 
 const validateLogin = (req, _res, next) => {
   const { error } = loginSchema.validate(req.body);
@@ -64,10 +65,23 @@ const validateBlogPostValues = (req, res, next) => {
   next();
 };
 
+const validatePostChanges = (req, _res, next) => {
+  const { error } = updatePostSchema.validate(req.body);
+
+  if (error) {
+    const err = new Error('Some required fields are missing');
+    err.status = 400;
+    throw err;
+  }
+
+  next();
+};
+
 module.exports = {
   validateLogin,
   validateNewUserValues,
   validateToken,
   validateCategory,
   validateBlogPostValues,
+  validatePostChanges,
 };
